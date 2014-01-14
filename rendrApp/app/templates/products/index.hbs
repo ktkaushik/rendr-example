@@ -1,0 +1,14 @@
+<h1>Hello! </h1>
+
+<p class="lead">You are viewing the products/index template.</p>
+
+
+<h3>Users</h3>
+
+<ul>
+  {{#each models}}
+    <li>
+      <a href="/products/{{id}}">{{name}}</a>
+    </li>
+  {{/each}}
+</ul>
