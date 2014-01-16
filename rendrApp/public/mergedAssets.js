@@ -2466,15 +2466,22 @@ module.exports = RendrBase.extend({});
 }, "app/models/product": function(exports, require, module) {var Base = require('./base');
 
 module.exports = Base.extend({
-  url: function() {
-    if (this.isNew()) {
-      console.log('..... new product............');
-      return '/products';
-    } else{
-      console.log('..... showing a product............');
-      return '/products' + '/:id' + '.json';
-    };
+  // url: function() {
+  //   if (this.isNew()) {
+  //     console.log('..... new product............');
+  //     return '/products';
+  //   } else{
+  //     console.log('..... showing a product............');
+  //     return '/products' + '/:id' + '.json';
+  //   };
     
+  // }
+
+  url: '/products',
+
+  defaults: {
+  	name: '',
+  	price: 1
   }
 });
 
@@ -2641,6 +2648,7 @@ var _ = require('underscore')
   , Product = require('../../models/product');
 
 module.exports = BaseView.extend({
+
   className: 'products_new_view',
 
   events: {
@@ -2648,18 +2656,18 @@ module.exports = BaseView.extend({
   },
 
   postInitialize: function() {
+    console.log("in postInitialize of view class for new...");
     _.bindAll(this, 'saveProduct');
     this.model = new Product({}, { app: this.app });
+    console.log(this.model.url);
   },
 
   saveProduct: function() {
-    alert('Save product');
-    // this.model.once('sync', this);
-    console.log('logging model.............');
-    this.model.name = 'ajskds';
-    this.model.price = 10;
+    this.model.set({name: 'kaushik', price: 1000}); // temp setup
     console.log(this.model);
-    this.model.save();
+    this.model.once('sync',function (argument) {
+      
+    }).save();
   }
 
 });
